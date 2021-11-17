@@ -28,7 +28,7 @@ router.get('/', function(req, res, next) {
 
 router.get('/test', function(req, res, next) {
   Performer.isPlaying=false;
-  
+  Performer.broadcast="";
   res.send('quartet server test');
 });
 
