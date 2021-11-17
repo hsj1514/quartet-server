@@ -19,9 +19,9 @@ router.get('/update', function(req, res, next) {
   });
 });
 router.get('/play', function(req, res, next) {
-  if(req.params.isAuidence){
-    Performer.isPlaying=req.params.isPlaying;
-    if(req.params.isPlaying){
+  if(req.query.isAuidence){
+    Performer.isPlaying=req.query.isPlaying;
+    if(req.query.isPlaying){
       res.send('playing');
     }
     else{
