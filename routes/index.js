@@ -9,8 +9,8 @@ const actions = {
 	HEART: 1,
 	JUMP: 2,
 	GLOW: 3,
-    CLAP: 4,
-    GROUPJUMP: 5
+  CLAP: 4,
+  GROUPJUMP: 5
 }
 var Player1={
   id: 0,
@@ -27,14 +27,16 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/test', function(req, res, next) {
+  Performer.isPlaying=false;
+  
   res.send('quartet server test');
 });
 
 router.get('/update', function(req, res, next) {
   res.send({
     isPlaying: Performer.isPlaying,
-    action: Player1.currentAction,
-    broadcast: Performer.broadcast
+    broadcast: Performer.broadcast,
+    action: Player1.currentAction
   });
 });
 
@@ -50,6 +52,7 @@ router.get('/play', function(req, res, next) {
 router.get('/broadcast', function(req, res, next) {
   if(!req.query.isAuidence){
     Performer.broadcast=req.query.broadcast;
+    res.send('Not a Performer');
   }
   else{
     res.send('Not a Performer');
