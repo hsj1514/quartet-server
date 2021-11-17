@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
-var isPlaying=false;
+var Performer={
+  isPlaying: false,
+  broadcast: ""
+}
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
@@ -16,12 +19,17 @@ router.get('/update', function(req, res, next) {
   });
 });
 router.get('/play', function(req, res, next) {
-  isPlaying=req.isPlaying;
-  if(isPlaying){
-  res.send('success');
+  if(!req.isAudience){
+    Performer.isPlaying=req.isPlaying;
+    if(req.isPlaying){
+      res.send('playing');
+    }
+    else{
+      res.send('paused');
+    }
   }
   else{
-  res.send('fail');
+    res.send('Not a Performer');
   }
 });
 module.exports = router;
