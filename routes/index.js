@@ -4,6 +4,23 @@ var Performer={
   isPlaying: false,
   broadcast: ""
 }
+const actions = {
+	NOTHING: 0,
+	HEART: 1,
+	JUMP: 2,
+	GLOW: 3,
+    CLAP: 4,
+    GROUPJUMP: 5
+}
+var Player1={
+  id: 0,
+  currentAction: actions.NOTHING
+}
+var Player2={
+  id: 0,
+  currentAction: actions.NOTHING
+}
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
@@ -15,7 +32,8 @@ router.get('/test', function(req, res, next) {
 
 router.get('/update', function(req, res, next) {
   res.send({
-    isPlaying: isPlaying
+    isPlaying: Performer.isPlaying,
+    action: Player1.currentAction
   });
 });
 router.get('/play', function(req, res, next) {
