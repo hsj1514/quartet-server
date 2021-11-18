@@ -67,6 +67,7 @@ router.get('/name', function(req, res, next) {
     Player2.id=req.query.name;
     Player2.currentAction=actions.NOTHING;
     Player2.score=0;
+    res.send(Player2.id);
   }
   else{
     res.send("problem");
@@ -74,10 +75,10 @@ router.get('/name', function(req, res, next) {
 });
 
 router.get('/action', function(req, res, next) {
-  if(req.query.token===Player1.id){
+  if(req.query.token==Player1.id){
     Player1.currentAction=req.query.action;
   }
-  else if(req.query.token===Player2.id){
+  else{
     Player2.currentAction=req.query.action;
   }
   // res.send("action received");
