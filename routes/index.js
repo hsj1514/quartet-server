@@ -75,12 +75,22 @@ router.get('/name', function(req, res, next) {
 });
 
 router.get('/action', function(req, res, next) {
-  if(req.token==Player1.id){
+  if(req.query.token==Player1.id){
     Player1.currentAction=req.query.action;
   }
   else{
     Player2.currentAction=req.query.action;
   }
-  res.send("action received");
+  // res.send("action received");
+});
+
+router.get('/score', function(req, res, next) {
+  if(req.query.token==Player1.id){
+    Player1.score=req.query.score;
+  }
+  else{
+    Player2.score=req.query.score;
+  }
+  // res.send("score received");
 });
 module.exports = router;
