@@ -13,12 +13,14 @@ const actions = {
   GROUPJUMP: 5
 }
 var Player1={
-  id: 0,
-  currentAction: actions.NOTHING
+  id: "",
+  currentAction: actions.NOTHING,
+  score: 0
 }
 var Player2={
-  id: 0,
-  currentAction: actions.NOTHING
+  id: "",
+  currentAction: actions.NOTHING,
+  score: 0
 }
 
 /* GET home page. */
@@ -36,7 +38,12 @@ router.get('/update', function(req, res, next) {
   res.send({
     isPlaying: Performer.isPlaying,
     broadcast: Performer.broadcast,
-    action: Player1.currentAction
+    p1action: Player1.currentAction,
+    p1name: Player1.id,
+    p1score: Player1.score,
+    p2action: Player2.currentAction,
+    p2name: Player2.id,
+    p2score: Player2.score
   });
 });
 
@@ -44,18 +51,32 @@ router.get('/play', function(req, res, next) {
   if(!req.query.isAuidence){
     Performer.isPlaying=req.query.isPlaying;
   }
-  else{
-    res.send('Not a Performer');
-  }
 });
 
 router.get('/broadcast', function(req, res, next) {
   if(!req.query.isAuidence){
     Performer.broadcast=req.query.broadcast;
-    res.send('Not a Performer');
+  }
+});
+
+router.get('/name', function(req, res, next) {
+  if(req.query.name!=p2name){
+    Player1.currentAction=Player2.currentAction;
+    Player1.id=Player2.id;
+    Player1.score=Player2.score;
+    Player2.id=req.query.name;
+    Player2.currentAction=actions.NOTHING;
+    Player2.score=0;
+  }
+});
+
+router.get('/action', function(req, res, next) {
+  if(req.token==p1name){
+    Player1.currentAction=req.action;
   }
   else{
-    res.send('Not a Performer');
+    Player2.currentAction=req.action;
   }
+  res.send("action received");
 });
 module.exports = router;
