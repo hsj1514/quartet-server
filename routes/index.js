@@ -60,7 +60,7 @@ router.get('/broadcast', function(req, res, next) {
 });
 
 router.get('/name', function(req, res, next) {
-  if(req.query.name!=p2name){
+  if(req.query.name!=undefined && req.query.name!=p2name){
     Player1.currentAction=Player2.currentAction;
     Player1.id=Player2.id;
     Player1.score=Player2.score;
