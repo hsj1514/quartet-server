@@ -67,6 +67,10 @@ router.get('/name', function(req, res, next) {
     Player2.id=req.query.name;
     Player2.currentAction=actions.NOTHING;
     Player2.score=0;
+    res.send(Player2.id);
+  }
+  else{
+    res.send("problem");
   }
 });
 
