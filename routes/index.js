@@ -60,7 +60,9 @@ router.get('/broadcast', function(req, res, next) {
 });
 
 router.get('/name', function(req, res, next) {
-  if(req.query.name!=undefined && req.query.name!=Player2.id){
+  if(req.query.name!=undefined && req.query.name!=Player2.id && req.query.name!=""
+    && req.query.isAuidence
+  ){
     Player1.currentAction=Player2.currentAction;
     Player1.id=Player2.id;
     Player1.score=Player2.score;
@@ -76,10 +78,10 @@ router.get('/name', function(req, res, next) {
 
 router.get('/action', function(req, res, next) {
   if(req.token==Player1.id){
-    Player1.currentAction=req.action;
+    Player1.currentAction=req.query.action;
   }
   else{
-    Player2.currentAction=req.action;
+    Player2.currentAction=req.query.action;
   }
   res.send("action received");
 });
