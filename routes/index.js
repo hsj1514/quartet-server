@@ -60,9 +60,7 @@ router.get('/broadcast', function(req, res, next) {
 });
 
 router.get('/name', function(req, res, next) {
-  if(req.query.name!=undefined && req.query.name!=Player2.id && req.query.name!=""
-    && req.query.isAuidence
-  ){
+  if(req.query.name!=undefined && req.query.name!=Player2.id){
     Player1.currentAction=Player2.currentAction;
     Player1.id=Player2.id;
     Player1.score=Player2.score;
