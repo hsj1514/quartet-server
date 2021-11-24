@@ -60,6 +60,7 @@ router.get('/broadcast', function(req, res, next) {
 });
 
 router.get('/name', function(req, res, next) {
+
   if(req.query.name!=undefined && req.query.name!=Player2.id){
     Player1.currentAction=Player2.currentAction;
     Player1.id=Player2.id;
@@ -75,10 +76,15 @@ router.get('/name', function(req, res, next) {
 });
 
 router.get('/action', function(req, res, next) {
+  console.log(req.query.name);
+  console.log(Player1.id);
+  console.log(Player2.id);
   if(req.query.token==Player1.id){
+    console.log("p1");
     Player1.currentAction=req.query.action;
   }
   else{
+    console.log("p2");
     Player2.currentAction=req.query.action;
   }
   // res.send("action received");
