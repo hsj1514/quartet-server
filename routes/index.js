@@ -75,7 +75,7 @@ router.get('/name', function(req, res, next) {
 });
 
 router.get('/action', function(req, res, next) {
-  if(req.query.token==Player1.name){
+  if(req.query.token==Player1.id){
     Player1.currentAction=req.query.action;
   }
   else{
