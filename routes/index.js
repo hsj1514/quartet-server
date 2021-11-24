@@ -75,7 +75,7 @@ router.get('/name', function(req, res, next) {
 });
 
 router.get('/action', function(req, res, next) {
-  if(req.query.token==Player1.id){
+  if(req.query.name==Player1.id){
     Player1.currentAction=req.query.action;
   }
   else{
@@ -85,7 +85,7 @@ router.get('/action', function(req, res, next) {
 });
 
 router.get('/score', function(req, res, next) {
-  if(req.query.token==Player1.id){
+  if(req.query.name==Player1.id){
     Player1.score=req.query.score;
   }
   else{
