@@ -17,7 +17,7 @@ class Player{
     if(action>0 && action<4){
       setTimeout(()=>{
         this.action=actions.NOTHING;
-      },1000
+      },3000
       )
     }
   }
@@ -38,7 +38,7 @@ var Player2={
   currentAction: actions.NOTHING,
   score: 0
 }
-const Players={}
+let Players={}
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
@@ -116,5 +116,9 @@ router.get('/score', function(req, res, next) {
 
 router.get('/logout', function(req, res, next) {
   delete Players[req.query.name];
+});
+
+router.get('/reset', function(req, res, next) {
+  Players={}
 });
 module.exports = router;
