@@ -1,9 +1,3 @@
-var express = require('express');
-var router = express.Router();
-var Performer={
-  isPlaying: false,
-  broadcast: ""
-}
 const actions = {
 	NOTHING: 0,
 	HEART: 1,
@@ -11,6 +5,28 @@ const actions = {
 	GLOW: 3,
   CLAP: 4,
   GROUPJUMP: 5
+}
+class Player{
+  constructor(name, action, score){
+      this.name=name;
+      this.action=action;
+      this.score=score;
+  }
+  setAction(action){
+    this.action=action;
+    if(action>0 && action<4){
+      setTimeout(()=>{
+        this.action=actions.NOTHING;
+      },1000
+      )
+    }
+  }
+}
+var express = require('express');
+var router = express.Router();
+var Performer={
+  isPlaying: false,
+  broadcast: ""
 }
 var Player1={
   id: "",
@@ -22,7 +38,7 @@ var Player2={
   currentAction: actions.NOTHING,
   score: 0
 }
-
+const Players={}
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
@@ -43,7 +59,8 @@ router.get('/update', function(req, res, next) {
     p1score: Player1.score,
     p2action: Player2.currentAction,
     p2name: Player2.id,
-    p2score: Player2.score
+    p2score: Player2.score,
+    players: Players,
   });
 });
 
@@ -72,6 +89,7 @@ router.get('/name', function(req, res, next) {
   else{
     res.send("problem");
   }
+  Players[req.query.name]=new Player(req.query.name,actions.NOTHING,0);
 });
 
 router.get('/action', function(req, res, next) {
@@ -82,6 +100,7 @@ router.get('/action', function(req, res, next) {
     Player2.currentAction=req.query.action;
   }
   // res.send("action received");
+  Players[req.query.name].setAction(req.query.action);
 });
 
 router.get('/score', function(req, res, next) {
@@ -92,5 +111,10 @@ router.get('/score', function(req, res, next) {
     Player2.score=req.query.score;
   }
   // res.send("score received");
+  Players[req.query.name].score=req.query.score;
+});
+
+router.get('/logout', function(req, res, next) {
+  delete Players[req.query.name];
 });
 module.exports = router;
