@@ -53,6 +53,12 @@ router.get('/test', function(req, res, next) {
   res.send('quartet server test');
 });
 
+router.get('/performer', function(req, res, next) {
+  Performer.isPlaying=false;
+  Performer.broadcast="";
+});
+
+
 router.get('/update', function(req, res, next) {
   res.send({
     isPlaying: Performer.isPlaying,
