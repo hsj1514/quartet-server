@@ -13,6 +13,9 @@ class Player{
       this.score=score;
   }
   setAction(action){
+    if(this.action==5 && action!=0){
+      return;
+    }
     this.action=action;
     if(action>0 && action<4){
       setTimeout(()=>{
