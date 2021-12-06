@@ -107,7 +107,9 @@ router.get('/action', function(req, res, next) {
     Player2.currentAction=req.query.action;
   }
   // res.send("action received");
-  Players[req.query.name].setAction(req.query.action);
+  if(Players.hasOwnProperty(req.query.name)){
+    Players[req.query.name].setAction(req.query.action);
+  }
 });
 
 router.get('/score', function(req, res, next) {
@@ -118,11 +120,15 @@ router.get('/score', function(req, res, next) {
     Player2.score=req.query.score;
   }
   // res.send("score received");
-  Players[req.query.name].score=req.query.score;
+  if(Players.hasOwnProperty(req.query.name)){
+    Players[req.query.name].score=req.query.score;
+  }
 });
 
 router.get('/logout', function(req, res, next) {
-  delete Players[req.query.name];
+  if(Players.hasOwnProperty(req.query.name)){
+    delete Players[req.query.name];
+  }
 });
 
 router.get('/reset', function(req, res, next) {
