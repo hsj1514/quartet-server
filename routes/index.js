@@ -11,8 +11,13 @@ class Player{
       this.name=name;
       this.action=action;
       this.score=score;
+      this.jumpTimer=Date.now();
+      this.clapTimer=Date.now();
+      this.time=[0,0,0,0,0,0];
   }
   setAction(action){
+
+
     if(this.action==5 && action!=0){
       return;
     }
@@ -20,8 +25,20 @@ class Player{
     if(action>0 && action<4){
       setTimeout(()=>{
         this.action=actions.NOTHING;
+        this.time[action]+=3000;
       },3000
       )
+    }
+
+    if(action==4){
+      this.clapTimer=Date.now();
+    }
+    else if(action==5){
+      this.jumpTimer=Date.now();
+    }
+    else if(action==0){
+      const currentTimer=this.action==4 ? this.clapTimer : this.jumpTimer
+      this.time[this.action]+=Date.now()-currentTimer 
     }
   }
 }
